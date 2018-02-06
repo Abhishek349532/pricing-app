@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pricing-app
+  labels:
+    app: pricing-app
+    expose: "true"
+    hystrix.enabled: "true"
+spec:
+  type: "LoadBalancer"
+  selector:
+    app: pricing-app
+    hystrix.enabled: "true"
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1  
+kind: Deployment
+metadata:
+  name: pricing-app
+  creationTimestamp: null
+  labels:
+     app: pricing-app
+     hystrix.enabled: "true"
+     hystrix.cluster: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pricing-app
+        hystrix.enabled: "true"
+        hystrix.cluster: default
+    spec:
+      containers:
+        - name: pricing-app
+          image: gcr.io/kubeflix-poc/pricing-app:v3
+          ports:
+          - containerPort: 8080
